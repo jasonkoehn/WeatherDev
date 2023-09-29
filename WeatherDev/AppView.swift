@@ -6,10 +6,18 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AppView: View {
+    @StateObject private var userLocationManager = UserLocationManager()
+    @StateObject private var locationSearchManager = LocationSearchManager()
+    @StateObject private var dataManager = DataManager()
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        LocationsHomeView()
+            .environmentObject(userLocationManager)
+            .environmentObject(locationSearchManager)
+            .environmentObject(dataManager)
+            .modelContainer(for: [Location.self, Forecast.self, HourlyForecast.self])
     }
 }
 
